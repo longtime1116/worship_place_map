@@ -1,5 +1,5 @@
 class WorshipPlaceController < ApplicationController
   def index
-    render :text => 'Hello!'
+      @worship_places = WorshipPlace.all
   end
 end
