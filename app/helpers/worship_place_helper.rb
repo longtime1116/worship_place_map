@@ -1,0 +1,2 @@
+module WorshipPlaceHelper
+end
