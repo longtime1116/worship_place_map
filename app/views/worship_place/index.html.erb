@@ -31,10 +31,11 @@
 
 <style type="text/css">
   #map { height: 400px;
-    margin-left:auto;    /* 左側マージンを自動的に空ける */
-    margin-right:auto;   /* 右側マージンを自動的に空ける */
-    text-align:left;     /* 中身を左側表示に戻す */
-    width: 80%;}
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+    width: 80%;
+  }
 </style>
 <div id="map"></div>
 <script type="text/javascript">
@@ -43,10 +44,12 @@
       center: {lat: 35.674722, lng: 139.739583},
       zoom: 10
     });
-    var marker = new google.maps.Marker({
-      position:  {lat: 35.674722, lng: 139.739583},
-      map: map
-    });
+    <% @worship_places.each do |worship_place| %>
+      var marker = new google.maps.Marker({
+        position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
+        map: map
+      });
+    <% end %>
   }
 </script>
 <script
