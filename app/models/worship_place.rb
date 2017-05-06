@@ -1,0 +1,2 @@
+class WorshipPlace < ApplicationRecord
+end
