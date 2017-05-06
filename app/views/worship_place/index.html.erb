@@ -39,9 +39,9 @@
 </style>
 
 <%= form_tag '/', method: :post do %>
-  <% %w(神社 寺).each do |item| %>
+  <% %w(寺 神社).each do |item| %>
     <label>
-      <%= check_box_tag 'worship_form[type][]', item, true %>
+      <%= check_box_tag 'worship_form[types][]', item, true %>
       <%= item %>
     </label>
   <% end %>
