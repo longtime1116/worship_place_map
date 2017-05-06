@@ -37,6 +37,18 @@
     width: 80%;
   }
 </style>
+
+<%= form_tag '/', method: :post do %>
+  <% %w(神社 寺).each do |item| %>
+    <label>
+      <%= check_box_tag 'worship_form[type][]', item, true %>
+      <%= item %>
+    </label>
+  <% end %>
+  <%= submit_tag('送信') %>
+<% end %>
+
+
 <div id="map"></div>
 <script type="text/javascript">
   function attachMessage(marker, msg) {
