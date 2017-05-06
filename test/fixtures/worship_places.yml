@@ -3,6 +3,7 @@
 one:
   place_id: 1
   name: MyString
+  official_name: MyString
   is_temple: false
   address: MyString
   latitude: 1.5
@@ -11,6 +12,7 @@ one:
 two:
   place_id: 1
   name: MyString
+  official_name: MyString
   is_temple: false
   address: MyString
   latitude: 1.5

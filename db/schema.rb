@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424131232) do
+ActiveRecord::Schema.define(version: 20170506021539) do
 
   create_table "worship_places", force: :cascade do |t|
     t.integer  "place_id"
     t.string   "name"
+    t.string   "official_name"
     t.boolean  "is_temple"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end
