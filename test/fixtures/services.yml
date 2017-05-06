@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  place_id: 1
+  start_time: 2017-05-06 11:38:44
+  end_time: 2017-05-06 11:38:45
+  is_book_sold: false
+
+two:
+  place_id: 1
+  start_time: 2017-05-06 11:38:44
+  end_time: 2017-05-06 11:38:45
+  is_book_sold: false
