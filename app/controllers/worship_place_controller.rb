@@ -1,5 +1,6 @@
 class WorshipPlaceController < ApplicationController
   def index
+    @check_box_status = {"寺" => true, "神社" => true }
     @worship_places = WorshipPlace.all
   end
 
@@ -9,11 +10,14 @@ class WorshipPlaceController < ApplicationController
       # TODO どちらも選択されなかったときの画面用意
       # 寺, 神社の検索ボックスを元にモデルを検索
       search_types = []
+      @check_box_status = {"寺" => false, "神社" => false }
       if post_params[:types].include?("寺") then
-        search_types << false
+        search_types << true
+        @check_box_status["寺"] = true
       end
       if post_params[:types].include?("神社") then
-        search_types << true
+        search_types << false
+        @check_box_status["神社"] = true
       end
       @worship_places = WorshipPlace.where(is_temple: search_types)
       # view の index を表示
