@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  place_id: 1
+  rank: MyString
+  object: MyString
+
+two:
+  place_id: 1
+  rank: MyString
+  object: MyString

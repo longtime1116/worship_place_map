@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170506021539) do
+ActiveRecord::Schema.define(version: 20170506023844) do
+
+  create_table "services", force: :cascade do |t|
+    t.integer  "place_id"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "is_book_sold"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "shrines", force: :cascade do |t|
+    t.integer  "place_id"
+    t.string   "rank"
+    t.string   "object"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "temples", force: :cascade do |t|
+    t.integer  "place_id"
+    t.string   "sect"
+    t.string   "rank"
+    t.string   "object"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "worship_places", force: :cascade do |t|
     t.integer  "place_id"
