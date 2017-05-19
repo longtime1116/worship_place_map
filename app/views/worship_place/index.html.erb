@@ -5,7 +5,16 @@
   margin-right:auto;
   text-align:right;
   width: 70%;
+  border: solid 1px;
 }
+#serch_box {
+  height : 400px;
+  border: solid 1px;
+}
+#submit_button {
+  text-align:right;
+}
+
   </style>
 
   <p id="notice"><%= notice %></p>
@@ -47,7 +56,9 @@
             <%= item %>
           </label>
         <% end %>
-        <%= submit_tag('送信') %>
+        <div id=submit_button>
+          <%= submit_tag('送信') %>
+        </div>
       <% end %>
     </div>
 
