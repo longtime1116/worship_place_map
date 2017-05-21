@@ -1,7 +1,14 @@
 class WorshipPlaceController < ApplicationController
   def index
     @check_box_status = {"寺" => true, "神社" => true }
-    @worship_places = WorshipPlace.all
+
+    # Temple/Shrine table の情報をマージした WorshipPlace のインスタンスを作る
+    @worship_places = WorshipPlace.eager_load(:shrine, :temple)
+    # メモ: Temple/Shrine それぞれ固有のデータにアクセスする方法は以下
+    #    @worship_places.each do |worship_place|
+    #      p worship_place.shrine.rank if !worship_place.is_temple
+    #      p worship_place.temple.rank if worship_place.is_temple
+    #    end
   end
 
   def search
