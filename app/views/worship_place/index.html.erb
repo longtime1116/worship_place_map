@@ -14,7 +14,9 @@
 #submit_button {
   text-align:right;
 }
-
+#infoWindow {
+  text-align: left;
+}
   </style>
 
   <p id="notice"><%= notice %></p>
@@ -66,7 +68,8 @@
       <script type="text/javascript">
 function attachMessage(marker, msg) {
   var infowindow = new google.maps.InfoWindow({
-    content: msg
+    content: msg,
+    maxWidth: 500
   });
   google.maps.event.addListener(marker, 'mouseover', function(event) {
     infowindow.open(marker.getMap(), marker);
@@ -86,7 +89,13 @@ function initMap() {
         position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
         map: map
       });
-  var contentString = '緯度: <%= worship_place.latitude %>, 経度: <%= worship_place.longitude %>'
+  var contentString = "<div id='infoWindow'>" +
+    "名称: <%= worship_place.name %><br>" + 
+    "住所: <%= worship_place.address %><br>" +
+    "<%= if worship_place.is_temple; '寺格:' + worship_place.temple.rank; else '社格:' + worship_place.shrine.rank; end  %><br>" +
+    "御本尊: <%= if worship_place.is_temple; worship_place.temple.object; else worship_place.shrine.object; end  %><br>" +
+    "宗派: <%= if worship_place.is_temple; worship_place.temple.sect; else '-'; end  %><br>" +
+    "</div>"
     attachMessage(marker, contentString);
 <% end %>
 }
