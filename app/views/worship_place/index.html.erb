@@ -92,9 +92,9 @@ function initMap() {
   var contentString = "<div id='infoWindow'>" +
     "名称: <%= worship_place.name %><br>" + 
     "住所: <%= worship_place.address %><br>" +
-    "<%= if worship_place.is_temple; '寺格:' + worship_place.temple.rank; else '社格:' + worship_place.shrine.rank; end  %><br>" +
-    "御本尊: <%= if worship_place.is_temple; worship_place.temple.object; else worship_place.shrine.object; end  %><br>" +
-    "宗派: <%= if worship_place.is_temple; worship_place.temple.sect; else '-'; end  %><br>" +
+    "<%= output_worship_place_item worship_place, :rank  %><br>" +
+    "<%= output_worship_place_item worship_place, :object %><br>" +
+    "<%= output_worship_place_item worship_place, :sect %><br>" +
     "</div>"
     attachMessage(marker, contentString);
 <% end %>
