@@ -26,9 +26,13 @@ module WorshipPlaceHelper
     end
 
     if is_temple
-      prefix + worship_place.temple.send(item)
+      if !worship_place.temple.send(item).nil?
+        prefix + worship_place.temple.send(item)
+      end
     else
-      prefix + worship_place.shrine.send(item)
+      if !worship_place.shrine.send(item).nil?
+        prefix + worship_place.shrine.send(item)
+      end
     end
   end
 end
