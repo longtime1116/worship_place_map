@@ -41,21 +41,27 @@ Service.create(:place_id      => 1,
                :end_time      => '17:00',
                :is_book_sold  =>  true)
 
+
+CSV.foreach('db/temples') do |row|
+    Temple.create(:place_id => row[0],
+                  :sect     => row[1],
+                  :rank     => row[2],
+                  :object   => row[3])
+end
+
 # 浅草寺
-place_id = 565
-WorshipPlace.create(:place_id       => place_id,
-                    :name           => '浅草寺',
-                    :official_name  => '浅草寺',
-                    :is_temple      => true,
-                    :address        => '東京都台東区浅草2丁目3番1号',
-                    :latitude       => 35.714722,
-                    :longitude      => 139.79675)
-Temple.create(:place_id => place_id,
-              :sect     => '聖観音宗',
-              :rank     => '総本山',
-              :object   => '聖観音菩薩')
-Service.create(:place_id      => place_id,
+#WorshipPlace.create(:place_id       => place_id,
+#                    :name           => '浅草寺',
+#                    :official_name  => '浅草寺',
+#                    :is_temple      => true,
+#                    :address        => '東京都台東区浅草2丁目3番1号',
+#                    :latitude       => 35.714722,
+#                    :longitude      => 139.79675)
+#Temple.create(:place_id => place_id,
+#              :sect     => '聖観音宗',
+#              :rank     => '総本山',
+#              :object   => '聖観音菩薩')
+Service.create(:place_id      => 700,
                :start_time    => '09:00',
                :end_time      => '17:00',
                :is_book_sold  =>  true)
-
