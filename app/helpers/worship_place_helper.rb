@@ -26,9 +26,17 @@ module WorshipPlaceHelper
     end
 
     if is_temple
-      prefix + worship_place.temple.send(item)
+      if !worship_place.temple.send(item).nil?
+        prefix + worship_place.temple.send(item)
+      else
+        return "寺格：-"
+      end
     else
-      prefix + worship_place.shrine.send(item)
+      if !worship_place.shrine.send(item).nil?
+        prefix + worship_place.shrine.send(item)
+      else
+        return "社格：-"
+      end
     end
   end
 end
