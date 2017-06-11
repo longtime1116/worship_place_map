@@ -1,3 +1,48 @@
+<script type="text/javascript">
+  function attachMessage(marker, msg) {
+    var infowindow = new google.maps.InfoWindow({
+      content: msg,
+      maxWidth: 500
+    });
+    google.maps.event.addListener(marker, 'mouseover', function(event) {
+      infowindow.open(marker.getMap(), marker);
+    });
+    marker.addListener('mouseout', function() {
+      infowindow.close();
+    });
+  }
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 35.674722, lng: 139.739583},
+      zoom: 10
+    });
+    <% @worship_places.each do |worship_place| %>
+      <% if worship_place.is_temple %>
+        var icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      <% else %>
+        var icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+      <% end %>
+      var marker = new google.maps.Marker({
+        position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
+        map: map,
+        icon: icon
+      });
+      var contentString = "<div id='infoWindow'>" +
+        "名称: <%= worship_place.name %><br>" + 
+        "住所: <%= worship_place.address %><br>" +
+        "<%= output_worship_place_item worship_place, :rank  %><br>" +
+        "<%= output_worship_place_item worship_place, :object %><br>" +
+        "<%= output_worship_place_item worship_place, :sect %><br>" +
+        "</div>"
+      attachMessage(marker, contentString);
+    <% end %>
+  }
+</script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBflv1wp3O6qIB9ZL3x88bWTjiOeZnI5Kw&callback=initMap"
+        async defer></script>
+
 <div id="container-fluid">
   <p id="notice"><%= notice %></p>
 
@@ -19,44 +64,6 @@
     </div>
 
     <div id="map" class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-      <script type="text/javascript">
-function attachMessage(marker, msg) {
-  var infowindow = new google.maps.InfoWindow({
-    content: msg,
-    maxWidth: 500
-  });
-  google.maps.event.addListener(marker, 'mouseover', function(event) {
-    infowindow.open(marker.getMap(), marker);
-  });
-  marker.addListener('mouseout', function() {
-    infowindow.close();
-  });
-}
-
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.674722, lng: 139.739583},
-    zoom: 10
-  });
-  <% @worship_places.each do |worship_place| %>
-      var marker = new google.maps.Marker({
-        position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
-        map: map
-      });
-  var contentString = "<div id='infoWindow'>" +
-    "名称: <%= worship_place.name %><br>" + 
-    "住所: <%= worship_place.address %><br>" +
-    "<%= output_worship_place_item worship_place, :rank  %><br>" +
-    "<%= output_worship_place_item worship_place, :object %><br>" +
-    "<%= output_worship_place_item worship_place, :sect %><br>" +
-    "</div>"
-    attachMessage(marker, contentString);
-<% end %>
-}
-      </script>
-      <script
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBflv1wp3O6qIB9ZL3x88bWTjiOeZnI5Kw&callback=initMap"
-              async defer></script>
     </div>
   </div>
   <table>
