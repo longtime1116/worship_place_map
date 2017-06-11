@@ -12,12 +12,13 @@ class WorshipPlaceController < ApplicationController
   end
 
   def search
-    unless post_params.nil? then
+    @check_box_status = {"寺" => false, "神社" => false }
+    @worship_places =[]
+    unless post_params[:types].blank? then
       # TODO 寺、神社以外の文字列がきた時の例外処理
       # TODO どちらも選択されなかったときの画面用意
       # 寺, 神社の検索ボックスを元にモデルを検索
       search_types = []
-      @check_box_status = {"寺" => false, "神社" => false }
       if post_params[:types].include?("寺") then
         search_types << true
         @check_box_status["寺"] = true
@@ -40,12 +41,9 @@ class WorshipPlaceController < ApplicationController
         end
         @center_place = nil if @center_place.empty?
       end
-
-      # view の index を表示
-      render :action =>"index"
-    else
-      render :text => "寺または神社を選択してください"
     end
+    # view の index を表示
+    render :action =>"index"
   end
 
   private
