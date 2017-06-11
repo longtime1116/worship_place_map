@@ -27,6 +27,20 @@ class WorshipPlaceController < ApplicationController
         @check_box_status["神社"] = true
       end
       @worship_places = WorshipPlace.where(is_temple: search_types)
+
+      # 中心となる寺社を決める
+      post_params[:search_word].strip!
+
+      if post_params[:search_word].length != 0 then
+        # まずは寺社仏閣の名前から検索
+        @center_place = @worship_places.where("name like '%" + post_params[:search_word] + "%'")
+        if @center_place.empty? then
+          # 寺社仏閣の名前がヒットしなかったら、住所に含まれているものを探す
+          @center_place = @worship_places.where("address like '%" + post_params[:search_word] + "%'")
+        end
+        @center_place = nil if @center_place.empty?
+      end
+
       # view の index を表示
       render :action =>"index"
     else
@@ -37,9 +51,7 @@ class WorshipPlaceController < ApplicationController
   private
   def post_params
     unless params[:worship_form].blank? then
-      params.require(:worship_form).permit(
-        types: []
-      )
+      params.require(:worship_form).permit(:search_word, types: [])
     end
   end
 end
