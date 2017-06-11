@@ -14,7 +14,10 @@
 
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 35.674722, lng: 139.739583},
+      center: {
+        lat: <%= if @center_place.nil? then 35.674722 else @center_place.first.latitude end %>,
+        lng: <%= if @center_place.nil? then 139.739583 else @center_place.first.longitude end %>,
+      },
       zoom: 10
     });
     <% @worship_places.each do |worship_place| %>
@@ -57,6 +60,8 @@
             <%= item %>
           </label>
         <% end %>
+        </br>
+        <%= text_field :worship_form, :search_word, placeholder: "寺社名 or 地名で検索" %>
         <div id=submit_button>
           <%= submit_tag('送信') %>
         </div>
