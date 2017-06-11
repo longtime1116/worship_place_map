@@ -59,19 +59,25 @@ function initMap() {
     zoom: 10
   });
   <% @worship_places.each do |worship_place| %>
-      var marker = new google.maps.Marker({
-        position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
-        map: map
-      });
-  var contentString = "<div id='infoWindow'>" +
-    "名称: <%= worship_place.name %><br>" + 
-    "住所: <%= worship_place.address %><br>" +
-    "<%= output_worship_place_item worship_place, :rank  %><br>" +
-    "<%= output_worship_place_item worship_place, :object %><br>" +
-    "<%= output_worship_place_item worship_place, :sect %><br>" +
-    "</div>"
+    <% if worship_place.is_temple %>
+      var icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    <% else %>
+      var icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    <% end %>
+    var marker = new google.maps.Marker({
+      position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
+      map: map,
+      icon: icon
+    });
+    var contentString = "<div id='infoWindow'>" +
+      "名称: <%= worship_place.name %><br>" + 
+      "住所: <%= worship_place.address %><br>" +
+      "<%= output_worship_place_item worship_place, :rank  %><br>" +
+      "<%= output_worship_place_item worship_place, :object %><br>" +
+      "<%= output_worship_place_item worship_place, :sect %><br>" +
+      "</div>"
     attachMessage(marker, contentString);
-<% end %>
+  <% end %>
 }
       </script>
       <script
