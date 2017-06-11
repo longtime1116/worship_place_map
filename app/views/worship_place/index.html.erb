@@ -60,7 +60,8 @@
             <%= item %>
           </label>
         <% end %>
-        <%= text_field :worship_form, :search_word %>
+        </br>
+        <%= text_field :worship_form, :search_word, placeholder: "寺社名 or 地名で検索" %>
         <div id=submit_button>
           <%= submit_tag('送信') %>
         </div>
