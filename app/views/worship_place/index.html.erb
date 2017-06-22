@@ -74,6 +74,38 @@
 
   <div class="row-fluid">
     <div id="result-list">
+      <% unless @center_place.nil? %>
+        <h3>検索結果</h3>
+        <div id="search-result">
+          <table>
+            <thead>
+              <tr>
+                <th>Place_ID</th>
+                <th>Name</th>
+                <th>is_temple</th>
+                <th>address</th>
+                <th>latitude</th>
+                <th>longitude</th>
+                <th colspan="6"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @center_place.each do |center_place| %>
+                <tr>
+                  <td><%= center_place.place_id %></td>
+                  <td><%= center_place.name %></td>
+                  <td><%= center_place.is_temple %></td>
+                  <td><%= center_place.address %></td>
+                  <td><%= center_place.latitude %></td>
+                  <td><%= center_place.longitude %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+
       <!-- 折り畳み展開ポインタ -->
       <div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
         <a style="cursor:pointer;">▼クリックで寺社仏閣リストを展開</a>
@@ -82,6 +114,7 @@
 
       <!-- 折り畳まれ部分 -->
       <div id="open" style="display:none;clear:both;">
+        <h3>全寺社仏閣リスト</h3>
         <table>
           <thead>
             <tr>
