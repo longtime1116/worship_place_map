@@ -78,30 +78,6 @@
     <div id="map" class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
     </div>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Place_ID</th>
-        <th>Name</th>
-        <th>is_temple</th>
-        <th>address</th>
-        <th>latitude</th>
-        <th>longitude</th>
-        <th colspan="6"></th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @worship_places.each do |worship_place| %>
-        <tr>
-          <td><%= worship_place.place_id %></td>
-          <td><%= worship_place.name %></td>
-          <td><%= worship_place.is_temple %></td>
-          <td><%= worship_place.address %></td>
-          <td><%= worship_place.latitude %></td>
-          <td><%= worship_place.longitude %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table' %>
 </div>

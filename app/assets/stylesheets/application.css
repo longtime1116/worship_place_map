@@ -14,7 +14,8 @@
  *= require_self
  */
 
-#map { height: 400px;
+#map { 
+  height: 400px;
   margin-left:auto;
   margin-right:auto;
   text-align:right;
@@ -30,4 +31,7 @@
 }
 #infoWindow {
   text-align: left;
+}
+#result-list {
+  float: left;
 }
