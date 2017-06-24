@@ -26,10 +26,17 @@
       <% else %>
         var icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
       <% end %>
+      var zIndex = 100
+      <% unless @center_place.nil? %>
+        <% if worship_place.place_id == @center_place.first.place_id %>
+          var zIndex = 10000
+        <% end %>
+      <% end %>
       var marker = new google.maps.Marker({
         position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
         map: map,
-        icon: icon
+        icon: icon,
+        zIndex: zIndex
       });
       var contentString = "<div id='infoWindow'>" +
         "名称: <%= worship_place.name %><br>" + 
