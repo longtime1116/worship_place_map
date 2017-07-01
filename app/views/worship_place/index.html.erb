@@ -21,16 +21,16 @@
       zoom: 10
     });
     <% @worship_places.each do |worship_place| %>
-        <% if worship_place.is_temple %>
-          var icon = {
-            url: 'assets/temple_icon_32x32.png',
-            scaledSize: new google.maps.Size(20,20),
-          }
-        <% else %>
-          var icon = {
-            url: 'assets/shrine_icon_32x32.png',
-            scaledSize: new google.maps.Size(20,20),
-          }
+      <% if worship_place.is_temple %>
+        var icon = {
+          url: 'assets/temple_icon_32x32.png',
+          scaledSize: new google.maps.Size(20,20),
+        }
+      <% else %>
+        var icon = {
+          url: 'assets/shrine_icon_32x32.png',
+          scaledSize: new google.maps.Size(20,20),
+        }
       <% end %>
 
       var zIndex = 100
