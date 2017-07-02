@@ -1,18 +1,21 @@
 <script type="text/javascript">
-  function attachMessage(marker, msg) {
-    var infowindow = new google.maps.InfoWindow({
-      content: msg,
-      maxWidth: 500
-    });
-    google.maps.event.addListener(marker, 'mouseover', function(event) {
-      infowindow.open(marker.getMap(), marker);
-    });
-    marker.addListener('mouseout', function() {
-      infowindow.close();
+  function attachMessage(marker, msg, info_window) {
+    google.maps.event.addListener(marker, 'click', function(event) {
+      if (info_window.info_window) {
+        info_window.info_window.close();
+      }
+      info_window.info_window = new google.maps.InfoWindow({
+        content: msg,
+        maxWidth: 500
+      });
+      info_window.info_window.open(marker.getMap(), marker);
     });
   }
 
   function initMap() {
+    var info_window = {
+      info_window: new google.maps.InfoWindow()
+    }
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: <%= if @center_place.nil? then 35.674722 else @center_place.first.latitude end %>,
@@ -52,7 +55,7 @@
         "<%= output_worship_place_item worship_place, :object %><br>" +
         "<%= output_worship_place_item worship_place, :sect %><br>" +
         "</div>"
-      attachMessage(marker, contentString);
+      attachMessage(marker, contentString, info_window);
     <% end %>
   }
 </script>
