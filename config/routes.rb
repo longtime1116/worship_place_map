@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root 'worship_place#index'
   post '', to: 'worship_place#search'
   get 'about', to: 'worship_place#about'
+  get  'contact', to: 'worship_place#contact'
+  get  'privacy', to: 'worship_place#privacy'
 end
