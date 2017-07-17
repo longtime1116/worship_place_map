@@ -35,3 +35,6 @@
 #result-list {
   float: left;
 }
+table {
+  border-collapse: collapse;
+}
