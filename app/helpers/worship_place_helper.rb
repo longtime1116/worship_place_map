@@ -29,13 +29,13 @@ module WorshipPlaceHelper
       if !worship_place.temple.send(item).nil?
         prefix + worship_place.temple.send(item)
       else
-        return "寺格：-"
+        prefix + "-"
       end
     else
       if !worship_place.shrine.send(item).nil?
         prefix + worship_place.shrine.send(item)
       else
-        return "社格：-"
+        prefix + "-"
       end
     end
   end

@@ -1,18 +1,21 @@
 <script type="text/javascript">
-  function attachMessage(marker, msg) {
-    var infowindow = new google.maps.InfoWindow({
-      content: msg,
-      maxWidth: 500
-    });
-    google.maps.event.addListener(marker, 'mouseover', function(event) {
-      infowindow.open(marker.getMap(), marker);
-    });
-    marker.addListener('mouseout', function() {
-      infowindow.close();
+  function attachMessage(marker, msg, info_window) {
+    google.maps.event.addListener(marker, 'click', function(event) {
+      if (info_window.info_window) {
+        info_window.info_window.close();
+      }
+      info_window.info_window = new google.maps.InfoWindow({
+        content: msg,
+        maxWidth: 500
+      });
+      info_window.info_window.open(marker.getMap(), marker);
     });
   }
 
   function initMap() {
+    var info_window = {
+      info_window: new google.maps.InfoWindow()
+    }
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: <%= if @center_place.nil? then 35.674722 else @center_place.first.latitude end %>,
@@ -22,14 +25,28 @@
     });
     <% @worship_places.each do |worship_place| %>
       <% if worship_place.is_temple %>
-        var icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+        var icon = {
+          url: 'assets/temple_icon_32x32.png',
+          scaledSize: new google.maps.Size(20,20),
+        }
       <% else %>
-        var icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        var icon = {
+          url: 'assets/shrine_icon_32x32.png',
+          scaledSize: new google.maps.Size(20,20),
+        }
+      <% end %>
+
+      var zIndex = 100
+      <% unless @center_place.nil? %>
+        <% if worship_place.place_id == @center_place.first.place_id %>
+          var zIndex = 10000
+        <% end %>
       <% end %>
       var marker = new google.maps.Marker({
         position:  {lat: <%= worship_place.latitude %>, lng: <%= worship_place.longitude %>},
         map: map,
-        icon: icon
+        icon: icon,
+        zIndex: zIndex
       });
       var contentString = "<div id='infoWindow'>" +
         "名称: <%= worship_place.name %><br>" + 
@@ -38,18 +55,23 @@
         "<%= output_worship_place_item worship_place, :object %><br>" +
         "<%= output_worship_place_item worship_place, :sect %><br>" +
         "</div>"
-      attachMessage(marker, contentString);
+      attachMessage(marker, contentString, info_window);
+      <% unless @center_place.nil? %>
+        <% if worship_place.place_id == @center_place.first.place_id %>
+          google.maps.event.trigger(marker, 'click');
+        <% end %>
+      <% end %>
     <% end %>
   }
 </script>
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBflv1wp3O6qIB9ZL3x88bWTjiOeZnI5Kw&callback=initMap"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqW1EngKZEfEO9Svgg79Y86ehm44jLpaE&callback=initMap"
         async defer></script>
 
 <div id="container-fluid">
   <p id="notice"><%= notice %></p>
 
-  <h1>御朱印マップ</h1>
+  <h1>寺社仏閣マップ</h1>
 
   <div class="row-fluid">
     <div id="search_box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -71,30 +93,6 @@
     <div id="map" class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
     </div>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Place_ID</th>
-        <th>Name</th>
-        <th>is_temple</th>
-        <th>address</th>
-        <th>latitude</th>
-        <th>longitude</th>
-        <th colspan="6"></th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @worship_places.each do |worship_place| %>
-        <tr>
-          <td><%= worship_place.place_id %></td>
-          <td><%= worship_place.name %></td>
-          <td><%= worship_place.is_temple %></td>
-          <td><%= worship_place.address %></td>
-          <td><%= worship_place.latitude %></td>
-          <td><%= worship_place.longitude %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table' %>
 </div>
