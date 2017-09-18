@@ -1,24 +1,7 @@
-# README
+# What
+This is a service that you can know the location of the shrines and temples in Japan.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# How to use
+You can just look at the displayed Google map.
+You can also search by the temple and shrines you want to know.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
